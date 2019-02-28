@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import Tittle from "./Tittle";
 import './Card.css'
 
+// Importamos los iconos de fontawesome
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faSkull, faHeart, faQuestion} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+// Añadimos los iconos a la librería
+library.add(faSkull, faHeart, faQuestion);
+
 export default class Card extends Component{
 
     constructor(props){
@@ -33,7 +41,7 @@ export default class Card extends Component{
             <div className="card">
                 <button onClick={this.rmCharacter}>Eliminar</button>
                 <Tittle setApp={this.setApp} titulo={this.props.titulo}/>
-                <p>{this.state.state}</p>
+                <p>{this.state.state === "Alive" ? <FontAwesomeIcon icon="heart" /> : <FontAwesomeIcon icon="skull" />}</p>
                 <p>{this.props.gender}</p>
                 <p>{this.state.chapters}</p>
                 <input onChange={this.kill.bind(this, "qwerty")} />
