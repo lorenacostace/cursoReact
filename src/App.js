@@ -1,7 +1,35 @@
 import React, { Component } from 'react';
+import * as characters from './characters.json';
 import './App.css';
+import Card from "./index";
 
-export default class CharacterCard extends Component{
+export default class Characters extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            characters : characters.results
+        }
+    }
+
+    extractChapters = (chapters) => {
+        let res = [];
+
+        chapters.map((ch, i) =>
+
+        )
+    };
+
+    render() {
+        return(
+            <div>
+                {this.state.characters.map((ch, i) =>
+                    <CharacterCard titulo={ ch.name} state={ch.status} gender={ch.gender} chapters={ch.episode} />
+                )}
+            </div>
+        );
+    }
+}
+export class CharacterCard extends Component{
 
   constructor(props){
     super(props);
@@ -22,6 +50,7 @@ export default class CharacterCard extends Component{
   };
 
   render() {
+      console.log(this.state.characters);
     return (
         <div className="card">
           <App setApp={this.setApp} titulo={this.props.titulo}/>
