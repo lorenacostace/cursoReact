@@ -11,9 +11,10 @@ export default class CharacterCard extends Component{
     }
   }
 
-  componentDidMount(){
-    this.setState({state:"dead"});
-  }
+  kill = (param, e) =>{
+      console.log(e.target.value, param);
+      this.setState({state:e.target.value});
+  };
 
   render() {
     return (
@@ -22,7 +23,7 @@ export default class CharacterCard extends Component{
           <p>{this.state.state}</p>
           <p>{this.props.gender}</p>
           <p>{this.state.chapters}</p>
-
+          <input onChange={this.kill.bind(this, "qwerty")} />
         </div>
     );
   }
