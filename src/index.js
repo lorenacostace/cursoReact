@@ -4,7 +4,7 @@ import './index.css';
 import Card from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<Card titulo= "Morty" state="alive" gender="male" chapters="all" />, document.getElementById('root'));
+ReactDOM.render(<Card />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

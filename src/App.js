@@ -14,16 +14,18 @@ export default class Characters extends Component{
     extractChapters = (chapters) => {
         let res = [];
 
-        chapters.map((ch, i) =>
+        chapters.forEach(ch =>
+            res.push(ch.split("/").slice(-1)[0])
+        );
 
-        )
+        return res.join(",");
     };
 
     render() {
         return(
             <div>
                 {this.state.characters.map((ch, i) =>
-                    <CharacterCard titulo={ ch.name} state={ch.status} gender={ch.gender} chapters={ch.episode} />
+                    <CharacterCard key={i} titulo={ch.name} state={ch.status} gender={ch.gender} chapters={this.extractChapters(ch.episode)} />
                 )}
             </div>
         );
