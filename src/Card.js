@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Tittle from "./Tittle";
 import './Card.css'
+import { Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, Button } from 'reactstrap';
 
 // Importamos los iconos de fontawesome
 import {library} from "@fortawesome/fontawesome-svg-core";
@@ -10,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // Añadimos los iconos a la librería
 library.add(faSkull, faHeart, faQuestion, faMale, faFemale);
 
-export default class Card extends Component{
+export default class MyCard extends Component{
 
     constructor(props){
         super(props);
@@ -46,7 +47,7 @@ export default class Card extends Component{
             case "Dead":
                 icon_name = "skull";
                 break;
-            case "unknown":
+            default:
                 icon_name = "question";
                 break;
         }
@@ -58,19 +59,25 @@ export default class Card extends Component{
             case "Female":
                 icon_gender = "female";
                 break;
-            case "unknown":
+            default:
                 icon_gender = "question";
                 break;
         }
 
         return (
-            <div className="card">
-                <button onClick={this.rmCharacter}>Eliminar</button>
-                <Tittle setApp={this.setApp} titulo={this.props.titulo}/>
-                <p><FontAwesomeIcon icon={icon_name} /></p>
-                <p><FontAwesomeIcon icon={icon_gender} /></p>
-                <p>{this.state.chapters}</p>
-                <input onChange={this.kill.bind(this, "qwerty")} />
+            <div>
+                <Card>
+                    <CardImg top width="100%" src={this.props.img}/>
+                    <CardBody>
+                        <CardTitle>{this.props.titulo}</CardTitle>
+                        <CardSubtitle>
+                            <FontAwesomeIcon icon={icon_name} />
+                            <FontAwesomeIcon icon={icon_gender} />
+                        </CardSubtitle>
+                        <CardText>{this.state.chapters}</CardText>
+                        <Button onClick={this.rmCharacter}>Eliminar</Button>
+                    </CardBody>
+                </Card>
             </div>
         );
     }

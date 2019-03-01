@@ -47,7 +47,7 @@ export default class Characters extends Component{
             <div>
                 <Form addCharacter = {this.addCharacter} name="rick" />
                 {this.state.characters.map((ch, i) =>
-                    <Card rmCharacter={this.rmCharacter} key={i} titulo={ch.name} state={ch.status} gender={ch.gender} chapters={this.extractChapters(ch.episode)} />
+                    <Card rmCharacter={this.rmCharacter} key={i} titulo={ch.name} state={ch.status} gender={ch.gender} img={ch.image} chapters={this.extractChapters(ch.episode)} />
                 )}
             </div>
         );
