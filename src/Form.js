@@ -6,7 +6,7 @@ export default class Form extends Component{
         this.state = {
             name: this.props.name || "Rick", // Valores por defecto en el caso de que no tenga nada
             state: this.props.state || "Alive",
-            gender: this.props.gender || "female",
+            gender: this.props.gender || "Female",
             chapters: this.props.chapters || ["1", "2"]
         }
     }

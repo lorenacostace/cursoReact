@@ -4,11 +4,11 @@ import './Card.css'
 
 // Importamos los iconos de fontawesome
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faSkull, faHeart, faQuestion} from "@fortawesome/free-solid-svg-icons";
+import {faSkull, faHeart, faQuestion, faMale, faFemale} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // Añadimos los iconos a la librería
-library.add(faSkull, faHeart, faQuestion);
+library.add(faSkull, faHeart, faQuestion, faMale, faFemale);
 
 export default class Card extends Component{
 
@@ -36,13 +36,39 @@ export default class Card extends Component{
     };
 
     render() {
-        console.log(this.state.characters);
+        let icon_name = "";
+        let icon_gender = "";
+
+        switch (this.state.state) {
+            case "Alive":
+                icon_name = "heart";
+                break;
+            case "Dead":
+                icon_name = "skull";
+                break;
+            case "unknown":
+                icon_name = "question";
+                break;
+        }
+
+        switch (this.props.gender) {
+            case "Male":
+                icon_gender = "male";
+                break;
+            case "Female":
+                icon_gender = "female";
+                break;
+            case "unknown":
+                icon_gender = "question";
+                break;
+        }
+
         return (
             <div className="card">
                 <button onClick={this.rmCharacter}>Eliminar</button>
                 <Tittle setApp={this.setApp} titulo={this.props.titulo}/>
-                <p>{this.state.state === "Alive" ? <FontAwesomeIcon icon="heart" /> : <FontAwesomeIcon icon="skull" />}</p>
-                <p>{this.props.gender}</p>
+                <p><FontAwesomeIcon icon={icon_name} /></p>
+                <p><FontAwesomeIcon icon={icon_gender} /></p>
                 <p>{this.state.chapters}</p>
                 <input onChange={this.kill.bind(this, "qwerty")} />
             </div>
