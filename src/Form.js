@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import {Form, Input, Button} from 'reactstrap';
 
-export default class Form extends Component{
+export default class MyForm extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -12,6 +13,7 @@ export default class Form extends Component{
     }
 
     change = (value, e) => {
+        debugger
         let tmp = this.state;
         tmp[value] = e.target.value;
         this.setState(tmp)
@@ -29,13 +31,13 @@ export default class Form extends Component{
 
     render() {
         return(
-            <div>
-                <input type="text" onChange={this.change.bind(this, "name")} placeholder="name" value={this.state.name}/>
-                <input type="text" onChange={this.change.bind(this, "state")} placeholder="state" value={this.state.state}/>
-                <input type="text" onChange={this.change.bind(this, "gender")} placeholder="gender" value={this.state.gender}/>
-                <input type="text" onChange={this.change.bind(this, "chapters")} placeholder="chapters" value={this.state.chapters}/>
-                <button onClick={this.saveCharacter}>Guardar</button>
-            </div>
+            <Form>
+                <Input type="text" onChange={this.change.bind(this, "name")} placeholder="name" value={this.state.name}/>
+                <Input type="text" onChange={this.change.bind(this, "state")} placeholder="state" value={this.state.state}/>
+                <Input type="text" onChange={this.change.bind(this, "gender")} placeholder="gender" value={this.state.gender}/>
+                <Input type="text" onChange={this.change.bind(this, "chapters")} placeholder="chapters" value={this.state.chapters}/>
+                <Button onClick={this.saveCharacter}>Guardar</Button>
+            </Form>
         );
     }
 }

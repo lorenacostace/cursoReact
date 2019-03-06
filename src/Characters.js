@@ -2,13 +2,15 @@ import * as characters from './characters.json';
 import React, { Component } from 'react';
 import Form from './Form';
 import Card from './Card';
+import { Container, Row, Col, Input} from 'reactstrap';
 
 
 export default class Characters extends Component{
     constructor(props){
         super(props);
         this.state = {
-            characters : characters.results
+            characters : characters.results,
+            filter_name: ""
         }
     }
 
@@ -42,13 +44,38 @@ export default class Characters extends Component{
         }
     };
 
+    filterCharacters = (e) => {
+        let value = "";
+
+        if(e.target.value.length >= 3)
+            value = e.target.value;
+
+        this.setState({filter_name: value});
+    };
+
     render() {
         return(
             <div>
                 <Form addCharacter = {this.addCharacter} name="rick" />
-                {this.state.characters.map((ch, i) =>
-                    <Card rmCharacter={this.rmCharacter} key={i} titulo={ch.name} state={ch.status} gender={ch.gender} img={ch.image} chapters={this.extractChapters(ch.episode)} />
-                )}
+                <br/>
+                <Input onChange={this.filterCharacters} placeholder= "Filtrar personajes por nombre"/>
+                <br/>
+                <Container>
+                    <Row>
+                        {this.state.characters.map((ch, i) => {
+                            if(ch.name.includes(this.state.filter_name)){
+                                return <Col>
+                                            <Card rmCharacter={this.rmCharacter} key={i} titulo={ch.name} state={ch.status} gender={ch.gender}
+                                                    img={ch.image} chapters={this.extractChapters(ch.episode)} />
+                                        </Col>;
+                            }
+                            else {
+                                return;
+                            }
+                        })}
+                    </Row>
+                </Container>
+
             </div>
         );
     }
