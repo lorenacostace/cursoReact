@@ -1,13 +1,18 @@
+import * as serviceWorker from './serviceWorker';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './index.css';
 import Characters from './Characters';
-import * as serviceWorker from './serviceWorker';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {HashRouter as Router, Route} from "react-router-dom";
 import MyForm from './Form';
 import Char from './Char';
-import NavLink from "react-router-dom/es/NavLink";
+import Error404 from "./Error404";
+
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import {NavLink, Switch }from "react-router-dom";
+
 
 
 ReactDOM.render(
@@ -17,9 +22,13 @@ ReactDOM.render(
                 <li><NavLink to="/form">Formulario</NavLink></li>
                 <li><NavLink to="/index">Personajes</NavLink></li>
             </ul>
-            <Route path = "/form" component={MyForm}/>
-            <Route path = "/index" component={Characters}/>
-            <Route path = "/personaje/:id" component={Char}/>
+            <Switch>
+                <Route path = "/form" component={MyForm}/>
+                <Route path = "/index" component={Characters}/>
+                <Route path = "/personaje/:id" component={Char}/>
+                <Route component={Error404}/>
+            </Switch>
+
         </div>
     </Router>
     , document.getElementById('root'));
