@@ -1,6 +1,5 @@
 import * as characters from './characters.json';
 import React, { Component } from 'react';
-import Form from './Form';
 import Card from './Card';
 import { Container, Row, Col, Input} from 'reactstrap';
 
@@ -56,7 +55,6 @@ export default class Characters extends Component{
     render() {
         return(
             <div>
-                <Form addCharacter = {this.addCharacter} name="rick" />
                 <br/>
                 <Input onChange={this.filterCharacters} placeholder= "Filtrar personajes por nombre"/>
                 <br/>
@@ -70,12 +68,12 @@ export default class Characters extends Component{
                                         </Col>;
                             }
                             else {
+                                // eslint-disable-next-line
                                 return;
                             }
                         })}
                     </Row>
                 </Container>
-
             </div>
         );
     }

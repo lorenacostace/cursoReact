@@ -4,8 +4,18 @@ import './index.css';
 import Characters from './Characters';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import MyForm from './Form';
 
-ReactDOM.render(<Characters />, document.getElementById('root'));
+
+ReactDOM.render(
+    <Router>
+        <div>
+            <Route path = "/form" component={MyForm}/>
+            <Route path = "/index" component={Characters}/>
+        </div>
+    </Router>
+    , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
