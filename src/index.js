@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import MyForm from './Form';
+import Char from './Char';
 
 
 ReactDOM.render(
@@ -13,6 +14,7 @@ ReactDOM.render(
         <div>
             <Route path = "/form" component={MyForm}/>
             <Route path = "/index" component={Characters}/>
+            <Route path = "/personaje/:id" component={Char}/>
         </div>
     </Router>
     , document.getElementById('root'));
