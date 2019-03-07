@@ -4,14 +4,19 @@ import './index.css';
 import Characters from './Characters';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {HashRouter as Router, Route} from "react-router-dom";
 import MyForm from './Form';
 import Char from './Char';
+import NavLink from "react-router-dom/es/NavLink";
 
 
 ReactDOM.render(
     <Router>
         <div>
+            <ul className="menu">
+                <li><NavLink to="/form">Formulario</NavLink></li>
+                <li><NavLink to="/index">Personajes</NavLink></li>
+            </ul>
             <Route path = "/form" component={MyForm}/>
             <Route path = "/index" component={Characters}/>
             <Route path = "/personaje/:id" component={Char}/>

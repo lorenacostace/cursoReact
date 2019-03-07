@@ -2,6 +2,7 @@ import * as characters from './characters.json';
 import React, { Component } from 'react';
 import Card from './Card';
 import { Container, Row, Col, Input} from 'reactstrap';
+import Link from "react-router-dom/es/Link";
 
 
 export default class Characters extends Component{
@@ -63,8 +64,10 @@ export default class Characters extends Component{
                         {this.state.characters.map((ch, i) => {
                             if(ch.name.includes(this.state.filter_name)){
                                 return <Col>
-                                            <Card rmCharacter={this.rmCharacter} key={i} titulo={ch.name} state={ch.status} gender={ch.gender}
+                                            <Link to={"/personaje/" + ch.name}>
+                                                <Card rmCharacter={this.rmCharacter} key={i} titulo={ch.name} state={ch.status} gender={ch.gender}
                                                     img={ch.image} chapters={this.extractChapters(ch.episode)} />
+                                            </Link>
                                         </Col>;
                             }
                             else {
