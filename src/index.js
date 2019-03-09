@@ -19,12 +19,12 @@ ReactDOM.render(
     <Router>
         <div>
             <ul className="menu">
-                <li><NavLink to="/form">Formulario</NavLink></li>
+                <li><NavLink to="/personaje/añadir">Formulario</NavLink></li>
                 <li><NavLink to="/index">Personajes</NavLink></li>
             </ul>
             <Switch>
-                <Route path = "/form" component={MyForm}/>
-                <Route path = "/index" component={Characters}/>
+                <Route path = "/personaje/añadir" component={MyForm}/>
+                <Route path = {["/", "/index", "/personajes", "/characters"]} exact component={Characters}/>
                 <Route path = "/personaje/:id" component={Char}/>
                 <Route component={Error404}/>
             </Switch>
