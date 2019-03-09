@@ -1,6 +1,7 @@
 import * as serviceWorker from './serviceWorker';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Heading, Foot}  from './Common';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,24 +12,21 @@ import Char from './Char';
 import Error404 from "./Error404";
 
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import {NavLink, Switch }from "react-router-dom";
+import  { Switch } from "react-router-dom";
 
 
 
 ReactDOM.render(
     <Router>
         <div>
-            <ul className="menu">
-                <li><NavLink to="/personaje/añadir">Formulario</NavLink></li>
-                <li><NavLink to="/index">Personajes</NavLink></li>
-            </ul>
+            <Heading/>
             <Switch>
                 <Route path = "/personaje/añadir" component={MyForm}/>
                 <Route path = {["/", "/index", "/personajes", "/characters"]} exact component={Characters}/>
                 <Route path = "/personaje/:id" component={Char}/>
                 <Route component={Error404}/>
             </Switch>
-
+            <Foot/>
         </div>
     </Router>
     , document.getElementById('root'));

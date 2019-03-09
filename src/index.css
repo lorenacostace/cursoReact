@@ -16,3 +16,9 @@ code {
 .active{
   border-bottom: 1px solid red;
 }
+
+.foot{
+  margin-top: 40px;
+  background-color: #aaa;
+  padding: 50px;
+}
