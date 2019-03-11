@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 
 export  class Heading extends React.Component {
     render(){
@@ -16,8 +16,11 @@ export  class Heading extends React.Component {
     }
 }
 
-export class Foot extends React.Component{
+class MyFoot extends React.Component{
     render(){
+        if(this.props.location.pathname === '/personaje/añadir')
+            return <div></div>;
+
         return(
             <div className="foot">
                 <a href="">Condiciones de uso </a>
@@ -27,3 +30,5 @@ export class Foot extends React.Component{
         );
     }
 }
+
+export const Foot = withRouter(MyFoot);
