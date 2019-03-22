@@ -67,12 +67,16 @@ export default class Characters extends Component{
                 <br/>
                 <Container>
                     <Row>
+                        {this.state.characters.length === 0 &&
+                            <div>Cargando...</div>}
                         {this.state.characters.map((ch, i) => {
                             if(ch.name.includes(this.state.filter_name)){
                                 return <Col key={i}>
                                             <Link to={"/personaje/" + ch.id}>
-                                                <Card rmCharacter={this.rmCharacter} key={i} titulo={ch.name} state={ch.status} gender={ch.gender}
-                                                    img={ch.image} chapters={this.extractChapters(ch.episode)} />
+                                                <Card
+                                                    rmCharacter={this.rmCharacter} key={i} titulo={ch.name} state={ch.status} gender={ch.gender}
+                                                        img={ch.image} chapters={this.extractChapters(ch.episode)}
+                                                />
                                             </Link>
                                         </Col>;
                             }

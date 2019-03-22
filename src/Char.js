@@ -10,7 +10,25 @@ export default class Char extends Component{
     };
 
     componentDidMount() {
+        // Cogemos el id
+        let id = this.props.match.params.id;
 
+        // Hacemos una peticion a la API pasandole el id del personaje
+        fetch("https://rickandmortyapi.com/api/character/" + id)
+            .then(r => r.json())
+            .then(d => this.setState({character: d}))
+            .catch(error => {
+                console.error("Personaje no encontrado");
+                this.setState({error: "Personaje no encontrado"});
+            });
+
+    }
+    /*
+    componentDidUpdate() {
+        this.update()
+    }
+
+    update(){
         // Cogemos el id
         let id = this.props.match.params.id;
 
@@ -23,6 +41,7 @@ export default class Char extends Component{
                 this.setState({error: "Personaje no encontrado"});
             });
     }
+    */
 
     render(){
         if(!this.state.character) {
