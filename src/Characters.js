@@ -1,4 +1,3 @@
-import * as characters from './characters.json';
 import React, { Component } from 'react';
 import Card from './Card';
 import { Container, Row, Col, Input} from 'reactstrap';
@@ -9,9 +8,15 @@ export default class Characters extends Component{
     constructor(props){
         super(props);
         this.state = {
-            characters : characters.results,
+            characters : [],
             filter_name: ""
         }
+    }
+
+    componentDidMount() {
+        fetch("/characters.json")
+            .then(r => r.json())
+            .then(d => this.setState({characters: d.results}));
     }
 
     extractChapters = (chapters) => {
@@ -63,7 +68,7 @@ export default class Characters extends Component{
                     <Row>
                         {this.state.characters.map((ch, i) => {
                             if(ch.name.includes(this.state.filter_name)){
-                                return <Col>
+                                return <Col key={i}>
                                             <Link to={"/personaje/" + ch.name}>
                                                 <Card rmCharacter={this.rmCharacter} key={i} titulo={ch.name} state={ch.status} gender={ch.gender}
                                                     img={ch.image} chapters={this.extractChapters(ch.episode)} />
@@ -71,8 +76,7 @@ export default class Characters extends Component{
                                         </Col>;
                             }
                             else {
-                                // eslint-disable-next-line
-                                return;
+                                return <div></div>;
                             }
                         })}
                     </Row>

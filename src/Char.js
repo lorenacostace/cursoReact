@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
-import * as characters from './characters.json';
 import Card from "./Card";
 
 
@@ -13,12 +12,16 @@ export default class Char extends Component{
 
         // Cogemos el id
         let id = this.props.match.params.id;
+        fetch("/characters.json")
+            .then(r => r.json())
+            .then(d =>
+                // Buscamos en nuestra lista de caracteres, el que coincida con nuestro id
+                d.results.forEach((c) => {
+                    if(c.name === id)
+                        this.setState({character: c})
+                }));
 
-        // Buscamos en nuestra lista de caracteres, el que coincida con nuestro id
-        characters.results.forEach((c) => {
-            if(c.name === id)
-                this.setState({character: c})
-        })
+
     }
 
     render(){
