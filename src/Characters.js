@@ -14,7 +14,8 @@ export default class Characters extends Component{
     }
 
     componentDidMount() {
-        fetch("/characters.json")
+        // Hacemos una peticion a la API de los personajes
+        fetch("https://rickandmortyapi.com/api/character/")
             .then(r => r.json())
             .then(d => this.setState({characters: d.results}));
     }
@@ -69,7 +70,7 @@ export default class Characters extends Component{
                         {this.state.characters.map((ch, i) => {
                             if(ch.name.includes(this.state.filter_name)){
                                 return <Col key={i}>
-                                            <Link to={"/personaje/" + ch.name}>
+                                            <Link to={"/personaje/" + ch.id}>
                                                 <Card rmCharacter={this.rmCharacter} key={i} titulo={ch.name} state={ch.status} gender={ch.gender}
                                                     img={ch.image} chapters={this.extractChapters(ch.episode)} />
                                             </Link>
