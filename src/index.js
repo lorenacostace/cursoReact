@@ -14,6 +14,21 @@ import Error404 from "./Error404";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import  { Switch } from "react-router-dom";
 
+// Redux
+
+//Actions
+function addChar(name, state, gender, chapters){
+    return{
+        type: "ADD_CHAR",
+        payload: {
+            name: name,
+            state: state,
+            gender: gender,
+            chapters: chapters
+        }
+    }
+}
+// End Redux
 
 
 ReactDOM.render(

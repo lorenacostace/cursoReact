@@ -21,7 +21,6 @@ export default class Char extends Component{
                 console.error("Personaje no encontrado");
                 this.setState({error: "Personaje no encontrado"});
             });
-
     }
     /*
     componentDidUpdate() {
