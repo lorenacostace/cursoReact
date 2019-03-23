@@ -13,8 +13,9 @@ import Error404 from "./Error404";
 
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import  { Switch } from "react-router-dom";
+import {createStore} from "redux";
 
-// Redux
+/* Redux */
 
 const initialState = {
     characters: []
@@ -39,7 +40,7 @@ function appReducer(state = {}, action){
     //Se hace el switch sobre el tipo
     switch (action.type) {
         case "ADD_CHAR":
-            let newst: { ...state };
+            let newst = { ...state };
             let ch = { ...action.payload, id: newst.characters.length + 1};
             newst.characters.push(ch);
             return newst;
@@ -47,7 +48,13 @@ function appReducer(state = {}, action){
             return state;
     }
 }
-// End Redux
+
+// Store
+const store = createStore(appReducer, initialState);
+window.store = store;
+window.addChar = addChar;
+
+/* End Redux */
 
 
 ReactDOM.render(
