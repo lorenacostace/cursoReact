@@ -16,6 +16,10 @@ import  { Switch } from "react-router-dom";
 
 // Redux
 
+const initialState = {
+    characters: []
+};
+
 //Actions
 function addChar(name, state, gender, chapters){
     return{
@@ -26,6 +30,21 @@ function addChar(name, state, gender, chapters){
             gender: gender,
             chapters: chapters
         }
+    }
+}
+
+// Reducers. Por parametro recibe el estado que por defecto esta vacio, y la accion.
+function appReducer(state = {}, action){
+
+    //Se hace el switch sobre el tipo
+    switch (action.type) {
+        case "ADD_CHAR":
+            let newst: { ...state };
+            let ch = { ...action.payload, id: newst.characters.length + 1};
+            newst.characters.push(ch);
+            return newst;
+        default:
+            return state;
     }
 }
 // End Redux
