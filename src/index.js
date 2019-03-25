@@ -13,12 +13,13 @@ import Error404 from "./Error404";
 
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import  { Switch } from "react-router-dom";
-import {createStore} from "redux";
+import {combineReducers, createStore} from "redux";
 
 /* Redux */
 
 const initialState = {
-    characters: []
+    characters: [],
+    counter: 0
 };
 
 //Actions
@@ -34,25 +35,49 @@ function addChar(name, state, gender, chapters){
     }
 }
 
-// Reducers. Por parametro recibe el estado que por defecto esta vacio, y la accion.
-function appReducer(state = {}, action){
+function incr() {
+    return {type: "INCR"}
+}
+
+function decr() {
+    return {type: "DECR"}
+}
+
+// Reducers. Por parametro recibe el estado que por defecto esta vacio y seria la lista de personajes, y la accion.
+function CharReducer(state = [], action){
 
     //Se hace el switch sobre el tipo
     switch (action.type) {
         case "ADD_CHAR":
-            let newst = { ...state };
-            let ch = { ...action.payload, id: newst.characters.length + 1};
-            newst.characters.push(ch);
+            let newst = [...state];
+            let ch = { ...action.payload, id: newst.length + 1};
+            newst.push(ch);
             return newst;
         default:
             return state;
     }
 }
 
+function counterReducer(state = 0, action) {
+
+    switch (action.type) {
+        case "INCR":
+            return state + 1;
+        case "DECR":
+            return state - 1;
+        default:
+            return state;
+    }
+}
+
+const appReducer = combineReducers({characters: CharReducer, counter: counterReducer });
+
 // Store
 const store = createStore(appReducer, initialState);
 window.store = store;
 window.addChar = addChar;
+window.incr = incr;
+window.decr = decr;
 
 /* End Redux */
 
