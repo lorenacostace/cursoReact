@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Card from './Card';
 import { Container, Row, Col, Input} from 'reactstrap';
 import Link from "react-router-dom/es/Link";
+import {store, actions} from './store.js';
 
 
 export default class Characters extends Component{
@@ -17,7 +18,17 @@ export default class Characters extends Component{
         // Hacemos una peticion a la API de los personajes
         fetch("https://rickandmortyapi.com/api/character/")
             .then(r => r.json())
-            .then(d => this.setState({characters: d.results}));
+            .then(d => store.dispatch(actions.setChars(d.results)));
+
+        // Para cuando el store haga algun cambio, actualicemos el estado
+        this.unsub = store.subscribe(() => {
+            this.setState({characters: store.getState().characters})
+        });
+    }
+
+    // Cuando cambiamos de componente, nos desubscribimos
+    componentWillUmount() {
+        this.unsub();
     }
 
     extractChapters = (chapters) => {
