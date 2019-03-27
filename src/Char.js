@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
 import Card from "./Card";
+import {connect} from "react-redux";
 
 
-export default class Char extends Component{
+export class Char extends Component{
     state = {
         character: null,
         error: null,
@@ -11,36 +12,18 @@ export default class Char extends Component{
 
     componentDidMount() {
         // Cogemos el id
-        let id = this.props.match.params.id;
+        let id = parseInt(this.props.match.params.id, 10);
 
-        // Hacemos una peticion a la API pasandole el id del personaje
-        fetch("https://rickandmortyapi.com/api/character/" + id)
-            .then(r => r.json())
-            .then(d => this.setState({character: d}))
-            .catch(error => {
-                console.error("Personaje no encontrado");
-                this.setState({error: "Personaje no encontrado"});
-            });
-    }
-    /*
-    componentDidUpdate() {
-        this.update()
-    }
 
-    update(){
-        // Cogemos el id
-        let id = this.props.match.params.id;
+        if(this.props.characters.length === 0){
+            return;
+        }
 
-        // Hacemos una peticion a la API pasandole el id del personaje
-        fetch("https://rickandmortyapi.com/api/character/" + id)
-            .then(r => r.json())
-            .then(d => this.setState({character: d}))
-            .catch(error => {
-                console.error("Personaje no encontrado");
-                this.setState({error: "Personaje no encontrado"});
-            });
+        if(!this.state.character || this.state.character.id !== id){ // Para evitar el bucle infinito
+            let chars = this.props.characters.filter(ch => ch.id === id);
+            this.setState({character: chars[0]}) // Con esto sustituimos la peticion fetch que habia antes
+        }
     }
-    */
 
     render(){
         if(!this.state.character) {
@@ -70,3 +53,10 @@ export default class Char extends Component{
         )
     }
 }
+const mapState = (state) => {
+    return { characters: state.characters };
+};
+
+const charComp = connect(mapState, null)(Char);
+
+export default charComp;
