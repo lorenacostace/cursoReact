@@ -6,15 +6,10 @@ const initialState = {
 
 //Actions
 export const actions = {
-    addChar: (name, state, gender, chapters) => {
+    addChar: (ch) => {
         return{
             type: "ADD_CHAR",
-            payload: {
-                name: name,
-                state: state,
-                gender: gender,
-                episode: chapters
-            }
+            payload: ch
         }
     },
 

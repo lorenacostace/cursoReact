@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import Card from './Card';
 import { Container, Row, Col, Input} from 'reactstrap';
 import Link from "react-router-dom/es/Link";
-import {store, actions} from './store.js';
+import { actions } from './store.js';
+import {connect} from "react-redux";
 
 
-export default class Characters extends Component{
+export class Characters extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -15,20 +16,14 @@ export default class Characters extends Component{
     }
 
     componentDidMount() {
-        // Hacemos una peticion a la API de los personajes
-        fetch("https://rickandmortyapi.com/api/character/")
-            .then(r => r.json())
-            .then(d => store.dispatch(actions.setChars(d.results)));
-
-        // Para cuando el store haga algun cambio, actualicemos el estado
-        this.unsub = store.subscribe(() => {
-            this.setState({characters: store.getState().characters})
-        });
-    }
-
-    // Cuando cambiamos de componente, nos desubscribimos
-    componentWillUmount() {
-        this.unsub();
+        if (this.props.characters.length === 0){
+            // Hacemos una peticion a la API de los personajes
+            fetch("https://rickandmortyapi.com/api/character/")
+                .then(r => r.json())
+                .then(d =>
+                    this.props.set(d.results) // equivalente a "store.dispatch(actions.setChars(d.results))"
+                );
+        }
     }
 
     extractChapters = (chapters) => {
@@ -39,10 +34,6 @@ export default class Characters extends Component{
         );
 
         return res.join(",");
-    };
-
-    addCharacter = (character) => {
-        this.setState({characters: [...this.state.characters, character]})
     };
 
     rmCharacter = (name) => {
@@ -78,9 +69,9 @@ export default class Characters extends Component{
                 <br/>
                 <Container>
                     <Row>
-                        {this.state.characters.length === 0 &&
+                        {this.props.characters.length === 0 &&
                             <div>Cargando...</div>}
-                        {this.state.characters.map((ch, i) => {
+                        {this.props.characters.map((ch, i) => {
                             if(ch.name.includes(this.state.filter_name)){
                                 return <Col key={i}>
                                             <Link to={"/personaje/" + ch.id}>
@@ -101,3 +92,14 @@ export default class Characters extends Component{
         );
     }
 }
+
+const mapState = (state) => {
+    return { characters: state.characters }
+};
+
+// La propiedad set la estamos inyectando
+const mapActions = { set: actions.setChars };
+
+const characters = connect(mapState, mapActions)(Characters);
+
+export default characters;

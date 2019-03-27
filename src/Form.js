@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {Form, Input, Button} from 'reactstrap';
+import { connect } from "react-redux";
+import { actions } from "./store";
 
-export default class MyForm extends Component{
+export class MyForm extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -13,7 +15,6 @@ export default class MyForm extends Component{
     }
 
     change = (value, e) => {
-        debugger
         let tmp = this.state;
         tmp[value] = e.target.value;
         this.setState(tmp)
@@ -26,7 +27,8 @@ export default class MyForm extends Component{
             gender: this.state.gender,
             episode: this.state.chapters
         };
-        this.props.addCharacter(character)
+        this.props.add(character);
+        this.props.history.push("/index");
     };
 
     render() {
@@ -41,3 +43,9 @@ export default class MyForm extends Component{
         );
     }
 }
+
+
+// En este caso las propiedades son null porque no queremos inyectar ninguna propiedad
+const form = connect(null, {add: actions.addChar})(MyForm);
+
+export default form;
